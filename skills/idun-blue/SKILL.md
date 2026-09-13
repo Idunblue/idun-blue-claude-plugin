@@ -2,14 +2,14 @@
 name: idun-blue
 description: Build and operate one creator's Idun Blue workspace safely through the live API or full OAuth MCP, including design pages, site appearance, offers, email, courses and publishing.
 metadata:
-  version: "4.12.0"
+  version: "4.13.0"
 ---
 
 # Idun Blue — agent operating manual
 
 You are an AI agent driving an Idun Blue workspace (courses, pages, offers,
 email, community) through its API on behalf of the workspace's creator.
-This document is your contract. Version: 4.12.0.
+This document is your contract. Version: 4.13.0.
 
 ## Authentication
 
@@ -85,11 +85,22 @@ This document is your contract. Version: 4.12.0.
   `{"$step":"build","path":"page.id"}`; the referenced step must also be
   named in `depends_on`. Resume with `idun_project_advance` after a timeout
   or reconnect instead of rebuilding the graph.
-- For a new page, prefer `build_page`: it chooses a compatible site-kit
-  template when none is supplied and owns copy fill plus verification as one
-  durable operation. Put an exact native form UUID in `form_id` and exact
-  button copy in `cta_labels`; identifiers and required labels must not live
-  only inside the prose brief.
+- Keep later work in that same project with `idun_project_extend` (or
+  `POST /api/admin/agent/projects/:id/steps`). Read its `continuation`
+  checkpoint, pass `expected_step_count`, a fresh `idempotency_key` and
+  1–20 new steps. Earlier results remain available as dependencies. An exact
+  retry reuses the key. Extension does not execute content changes; advance
+  afterwards. If advance returns `resume_required`, advance again instead
+  of recreating content. A completed project means its listed steps verified;
+  assess the whole brief and continue any unfinished parts.
+- When writing a new page with the creator's chosen model, use
+  `create_page_from_template` with finished `authored_values`. Read
+  `list_page_design_templates` for the site and
+  `get_page_design_template` for the observed template/version/slots first.
+  This stores your finished copy without another model rewriting it.
+  `build_page` remains available when the creator chooses Idun's server
+  generation; it queues a separate writer and verification. Put exact native
+  form UUIDs in `form_id` and exact button copy in `cta_labels`.
 - When comparing page-building quality between models, use
   `idun_page_comparison_create` or
   `POST /api/admin/agent/model-page-comparisons`. It chooses one compatible
@@ -269,15 +280,19 @@ another tab. A general MCP/API agent outside Studio has no such shared editing
 session: for a published page, prepare a separate private draft or clone for
 review instead of overwriting the live page.
 
-For Papi, REST and MCP the canonical whole-page operation is `build_page`.
-Supply `site_id`, `title`, the creator's complete `brief`, optional
-`public_path`, and a purpose such as `coaching`, `sales` or `article`.
-The planner selects a compatible template from that site's installed family
-unless `template_id` is explicit. Apply creates one private design page,
-queues copy writing durably, validates the stored design-section document and
-returns proof (page id, route, section counts, validation and content hash).
-Do not report the page complete while the operation is `verifying` or
-`needs_review`.
+For finished copy written by the creator's chosen model, use the
+`create_page_from_template` workflow with an observed compatible template
+and version, and complete `authored_values` for its actual section slots.
+Preserve the site's visual composition and supply real forms, links and offer
+references through the typed contract. Read back the saved page, inspect the
+preview and finish missing content before calling the assignment complete.
+
+For explicitly selected server generation, `build_page` accepts
+`site_id`, `title`, the creator's complete `brief`, optional
+`public_path` and purpose. It selects a compatible template when none is
+supplied, creates a private page and queues copy writing and verification.
+Do not report that page complete while the operation is `verifying` or
+`needs_review`. Publication remains a separate authorized action.
 
 ### Page address: public_path, not slug
 
