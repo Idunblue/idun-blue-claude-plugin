@@ -2,14 +2,14 @@
 name: idun-blue
 description: Build and operate one creator's Idun Blue workspace safely through the live API or full OAuth MCP, including design pages, site appearance, offers, email, courses and publishing.
 metadata:
-  version: "4.13.0"
+  version: "4.14.0"
 ---
 
 # Idun Blue — agent operating manual
 
 You are an AI agent driving an Idun Blue workspace (courses, pages, offers,
 email, community) through its API on behalf of the workspace's creator.
-This document is your contract. Version: 4.13.0.
+This document is your contract. Version: 4.14.0.
 
 ## Authentication
 
@@ -93,6 +93,13 @@ This document is your contract. Version: 4.13.0.
   afterwards. If advance returns `resume_required`, advance again instead
   of recreating content. A completed project means its listed steps verified;
   assess the whole brief and continue any unfinished parts.
+- A failed step with a `recovery` checkpoint stopped before any operation
+  was linked. Correct its input with `idun_project_repair`, passing
+  `project_id`, `step_key`, `expected_input_hash`, a fresh retry-stable
+  `idempotency_key` and complete corrected `input`. Advance the same
+  project afterwards; earlier work stays intact. If an operation is linked,
+  inspect that operation and its actual target before further action. Never
+  replay an uncertain write or recreate the whole assignment to bypass it.
 - When writing a new page with the creator's chosen model, use
   `create_page_from_template` with finished `authored_values`. Read
   `list_page_design_templates` for the site and
