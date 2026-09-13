@@ -1,4 +1,4 @@
-# Idun Blue for Claude Code
+# Idun Blue for Claude Code and Codex
 
 Installs the Idun Blue operating manual as a skill and connects the live MCP
 server (https://api.idun.blue/mcp). Generated from the server; do not edit by hand — run
@@ -9,7 +9,7 @@ server (https://api.idun.blue/mcp). Generated from the server; do not edit by ha
 Claude Code:
 
 ```
-claude plugin marketplace add idunblue/idun-blue-claude-plugin
+claude plugin marketplace add idunblue/idun-blue-plugin
 claude plugin install idun-blue@idun-blue
 claude mcp login idun-blue
 ```
@@ -17,7 +17,7 @@ claude mcp login idun-blue
 Codex:
 
 ```
-codex plugin marketplace add idunblue/idun-blue-claude-plugin
+codex plugin marketplace add idunblue/idun-blue-plugin
 codex plugin add idun-blue@idun-blue
 ```
 
