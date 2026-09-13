@@ -6,11 +6,22 @@ server (https://api.idun.blue/mcp). Generated from the server; do not edit by ha
 
 ## Install
 
+Claude Code:
+
 ```
 claude plugin marketplace add idunblue/idun-blue-claude-plugin
 claude plugin install idun-blue@idun-blue
 claude mcp login idun-blue
 ```
+
+Codex:
+
+```
+codex plugin marketplace add idunblue/idun-blue-claude-plugin
+codex plugin add idun-blue@idun-blue
+```
+
+Codex asks for the Idun OAuth login on install (`authentication: ON_INSTALL`).
 
 The last line opens the creator’s browser for Idun OAuth. Nothing about her
 subscription is stored by Idun; the plugin holds no key.

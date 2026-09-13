@@ -1,0 +1,20 @@
+{
+  "name": "idun-blue",
+  "interface": {
+    "displayName": "Idun Blue"
+  },
+  "plugins": [
+    {
+      "name": "idun-blue",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/idunblue/idun-blue-claude-plugin.git"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
