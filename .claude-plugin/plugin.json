@@ -1,0 +1,18 @@
+{
+  "name": "idun-blue",
+  "version": "4.12.0",
+  "description": "Operate one creator’s Idun Blue workspace — courses, pages, offers, email — through the live MCP server, with the operating manual installed as a skill.",
+  "author": {
+    "name": "Idunblue AB",
+    "url": "https://idun.blue"
+  },
+  "homepage": "https://idun.blue",
+  "repository": "https://github.com/idunblue/idun-blue-claude-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "idun",
+    "creator",
+    "courses",
+    "mcp"
+  ]
+}

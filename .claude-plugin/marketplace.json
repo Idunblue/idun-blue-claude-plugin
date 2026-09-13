@@ -1,0 +1,19 @@
+{
+  "name": "idun-blue",
+  "owner": {
+    "name": "Idunblue AB",
+    "url": "https://idun.blue"
+  },
+  "metadata": {
+    "description": "Idun Blue for Claude Code",
+    "version": "4.12.0"
+  },
+  "plugins": [
+    {
+      "name": "idun-blue",
+      "source": "./",
+      "description": "Operate one creator’s Idun Blue workspace — courses, pages, offers, email — through the live MCP server, with the operating manual installed as a skill.",
+      "version": "4.12.0"
+    }
+  ]
+}

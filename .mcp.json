@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "idun-blue": {
+      "type": "http",
+      "url": "https://api.idun.blue/mcp"
+    }
+  }
+}
